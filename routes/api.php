@@ -132,3 +132,13 @@ Route::get('sport-delete/{id}',[SportsController::class,'destroy']) ;
 
 Route::post('sport-store',[SportsController::class,'store']) ;
 Route::post('sport-update/{id}',[SportsController::class,'update']) ;
+
+// ...................matches api
+Route::get('match-show',[MatchesController::class,'show']) ; 
+Route::get('match-delete/{id}',[MatchesController::class,'destroy']) ;
+Route::get('match-index/{id}',[MatchesController::class,'index']) ;
+
+Route::post('match-store',[MatchesController::class,'store']) ; 
+Route::post('match-update/{id}',[MatchesController::class,'update']) ; 
+
+
