@@ -63,10 +63,9 @@ Route::get('destore/wear/{id}',[WearsController::class,'destore'])->name('destor
 Route::get('Primes-index',[PrimesController::class,'index']) ;
 Route::get('Primes-show',[PrimesController::class,'show']) ;
 Route::post('Primes-store',[PrimesController::class,'store']) ;
-Route::get('Primes-update',[PrimesController::class,'update']) ;
-
-Route::post('Primes-fileuploader',[PrimesController::class,'fileuploader']) ;
-Route::get('Primes-delete',[PrimesController::class,'delete']) ;
+Route::get('Primes-update/{id}/edit',[PrimesController::class,'edit']) ;
+Route::put('Primes-update/{id}/edit',[PrimesController::class,'update']) ;
+Route::delete('Primes-delete/{id}/Destroy',[PrimesController::class,'destroy']) ;
 /**========================End Primes-Api======================== */
 
 /**========================Replacments-Api======================== */

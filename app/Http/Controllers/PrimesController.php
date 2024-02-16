@@ -127,6 +127,18 @@ class PrimesController extends Controller
             ],404);
         }
     }
+    public function edit($id){
+        $data =  Primes::find($id);
+        if ($data) {
+            return $this->apiResponse($data, true, null, 200);
+
+        } else {
+            return response()->json([
+                'status' =>404,
+                'message'=>"Nothing to show"
+            ],404);
+        }
+    }
     public function destroy(Request $request){
         try {
             $Primes = Primes::where('uuid', $request->input('uuid'))->first();
