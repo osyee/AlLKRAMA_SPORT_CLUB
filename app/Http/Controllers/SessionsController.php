@@ -52,6 +52,17 @@ class SessionsController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
+    public function show(Request $request)
+    {
+        $session = Sessions::where('uud', $request->uud)->get();
+        if($session)
+        {
+         return $this->apiResponse($session, true, null, 200);
+        }
+        else{
+         return $this->notFoundResponse('session not found');
+        }
+    }
 
     public function update(Request $request )
     {
@@ -88,10 +99,10 @@ class SessionsController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
-    public function delete(Request $request)
+    public function delete($id)
     {
         try {
-            $session = Sessions::where('uud', $request->input('uud'))->first();
+            $session = Sessionss::Find($id);
 
             if (!$session) {
                 return $this->notFoundResponse('session not found.');

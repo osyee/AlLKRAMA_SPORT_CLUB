@@ -212,3 +212,22 @@ Route::post('match-update/{id}',[MatchesController::class,'update']) ;
 
 
 
+
+Route::get('employee-index',[EmployeesController::class,'index']) ;
+Route::post('employee-store',[EmployeesController::class,'store']) ;
+Route::post('employee-show',[EmployeesController::class,'show']) ;
+Route::post('employee-update',[EmployeesController::class,'update']) ;
+Route::get('employee/delete/{id}',[EmployeesController::class,'delete']) ;
+Route::get('employee-search', [EmployeesController::class,'search']);
+
+Route::get('plan-index',[PlansController::class,'index']) ;
+Route::post('plan-store',[PlansController::class,'store']) ;
+Route::get('plan-show',[PlansController::class,'show']) ;
+Route::get('plan-delete',[PlansController::class,'delete']) ;
+
+Route::get('session-index',[SessionsController::class,'index']) ;
+Route::get('session-store',[SessionsController::class,'store']) ;
+Route::get('session-show',[SessionsController::class,'show']) ;
+Route::post('session-update',[SessionsController::class,'update']) ;
+Route::get('session-delete',[SessionsController::class,'delete']) ;
+
