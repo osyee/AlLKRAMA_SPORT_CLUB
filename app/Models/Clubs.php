@@ -7,17 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Sports ;
 use App\Models\Standings ;
 use App\Models\Matches ;
-use App\Models\Videos;
-
 
 class Clubs extends Model
 {
     
     use HasFactory;
-    
+
+    protected $fillable = [
+      'uuid',
+      'name',
+      'logo',
+      'address',
+      'Sports_id'
+    ] ;
+
+protected $casts = [
+      'uuid'=>'string',
+      'name'=>'string',
+      'logo'=>'string',
+      'address'=>'string',
+] ;
+
+
     public function sport()
     {
-        return $this->belongsTo(Sports::class) ;
+        return $this->belongsTo(Sports::class,'Sports_id') ;
     }
     
     public function standing()
@@ -29,14 +43,16 @@ class Clubs extends Model
   {
     return $this->hasMany(Matches::class) ;
   }
-  /*public function information()
+
+  public function information()
   {
     return $this->morphMany(Information::class,'information_able');
-  }*/
+  }
   public function vidio()
   {
     return $this->morphMany(Videos::class,'video_able');
   }
  
+
 
 }

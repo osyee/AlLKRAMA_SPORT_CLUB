@@ -25,4 +25,8 @@ class Statistics extends Model
     {
         return $this->belongsTo(Matches::class) ;
     }
+    public function information()
+    {
+      return $this->morphMany(Information::class,'information_able');
+    }
 }

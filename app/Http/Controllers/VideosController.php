@@ -24,8 +24,19 @@ class VideosController extends Controller
     public function store(Request $request)
     {
    // $associations=Associations::find();
-    $club=Clubs::find(3);
+    $club=Clubs::find(1);
    // $matche=Matches::find();
+
+  
+  $validato=Validator::make($request->all(),[
+     'url'=>'string|max:255',
+     'description'=>'string',
+
+  ]);
+  if($validato->fails())
+  {
+    return $this->requiredField($validato->errors());
+  }
 
     $vidio=new Videos();
     $vidio->uuid=Uuid::uuid4();
@@ -55,10 +66,7 @@ class VideosController extends Controller
          ],$meesage);
          if($validato->fails())
          {
-         $validato->errors();
-         
-         return response()->json($validato);
-        // return $this->apiResponse($validato);
+          return $this->requiredField($validato->errors());
          }
 
        

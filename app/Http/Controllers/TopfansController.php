@@ -39,7 +39,7 @@ class TopfansController extends Controller
     
     public function store(Request $request)
     {
-        //$user = auth('sanctum')->user();
+    
         $validator = Validator::make($request->all(), [
             'associations_id' =>'required|string|exists:associations,id',
 
@@ -94,10 +94,11 @@ class TopfansController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
-    public function delete(request $request)
+    public function delete($id)
     {
-        try {
-            $topfans = Topfans::where('uuid', $request->input('uuid'))->first();
+
+       try {
+        $topfans=Topfans::find($id);
 
             if (!$topfans) {
                 return $this->notFoundResponse('topfans not found.');

@@ -28,6 +28,20 @@ class PlayersController extends Controller
         return $this->apiResponse($data, true, null, 200);
       
     }
+    public function showGK(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'play'=>'required|string|in:cb,cm,ss,gk',
+        ]);
+         if ($validator->fails()) {
+            return $this->requiredField($validator->errors()->first());
+        }
+       else{
+        $data = Players::where('play', $request->play)->get();
+        return $this->apiResponse($data, true, null, 200);
+       }
+      
+    }
     public function store(Request $request)
     {
 
@@ -35,7 +49,7 @@ class PlayersController extends Controller
             'uuid'=>'string',
             'name'=>'required|string',
             'high'=>'required|integer',
-            'play'=>'required|string',
+            'play'=>'required|string|in:cb,cm,ss,gk',
             'number'=>'required|integer | max:99',
             'born'=>'required|date',
             'from'=>'required|string',

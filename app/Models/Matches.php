@@ -72,7 +72,7 @@ protected $casts = [
   {
     return $this->hasMany(Statistics::class) ;
   } 
-  
+
   public function information()
   {
     return $this->morphMany(Information::class,'information_able');
@@ -81,4 +81,5 @@ protected $casts = [
   {
     return $this->morphMany(Videos::class,'vidioable');
   }
+
 }
