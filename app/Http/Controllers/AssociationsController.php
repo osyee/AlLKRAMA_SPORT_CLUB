@@ -26,7 +26,7 @@ class AssociationsController extends Controller
     
     public function store(Request $request)
     {
-        //$user = auth('sanctum')->user();
+
         $validator = Validator::make($request->all(), [
           
             'boss' =>'required|string|unique:associations|min:2|max:255|regex:/[a-z]/',
@@ -82,6 +82,7 @@ class AssociationsController extends Controller
         }
         try {
 
+
             $image = $this-> uploadImage2($request,'association','image');
             if(!$image)
             {
@@ -105,10 +106,10 @@ class AssociationsController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
-    public function delete(request $request)
+    public function delete($id)
     {
         try {
-            $association = Associations::where('uuid', $request->input('uuid'))->first();
+            $association = Associations::find($id);
 
             if (!$association) {
                 return $this->notFoundResponse('association not found.');

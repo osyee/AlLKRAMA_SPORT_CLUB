@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\Videos;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,9 +19,27 @@ class Associations extends Model
       'Sports_id'
     ] ;
 
+    protected $fillable = [
+      'uuid',
+      'boss',
+      'image',
+      'country',
+      'description',
+      'Sports_id'
+    ] ;
+
+    protected $casts = 
+    [
+      'uuid'=> 'string',
+      'boss'=>'string',
+      'image'=>'string',
+      'country'=>'string',
+      'description'=>'string',
+    ] ;
+
     public function sport()
     {
-        return $this->belongsTo(Sports::class) ;
+        return $this->belongsTo(Sports::class,'Sports_id') ;
     }
 
     public function topfan()
@@ -30,8 +47,4 @@ class Associations extends Model
       return $this->hasMany(Topfans::class) ;
      
     } 
-    public function vidio()
-    {
-      return $this->morphMany(Videos::class,'vidioable');
-    }
 }

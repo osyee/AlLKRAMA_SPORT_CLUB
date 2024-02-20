@@ -27,7 +27,7 @@ class ClubsController extends Controller
     
     public function store(Request $request)
     {
-        //$user = auth('sanctum')->user();
+        
         $validator = Validator::make($request->all(), [
         
             'name' =>'required|unique:clubs|regex:/[a-z]/',
@@ -106,10 +106,10 @@ class ClubsController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
-    public function delete(request $request)
+    public function delete($id)
     {
         try {
-            $club = Clubs::where('uuid', $request->input('uuid'))->first();
+            $club=Clubs::find($id);
 
             if (!$club) {
                 return $this->notFoundResponse('club not found.');
