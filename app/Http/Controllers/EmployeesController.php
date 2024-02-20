@@ -62,6 +62,18 @@ class EmployeesController extends Controller
         }
     }
 
+    public function show(Request $request)
+    {
+        $employee = Employees::where('uuid', $request->uuid)->with('sport')->get();
+        if($employee)
+        {
+         return $this->apiResponse($employee, true, null, 200);
+        }
+        else{
+         return $this->notFoundResponse('employees not found');
+        }
+    }
+
     public function update(Request $request )
     {
         $validator = Validator::make($request->all(), [
@@ -104,11 +116,11 @@ class EmployeesController extends Controller
             return $this->apiResponse(null, false, $ex->getMessage(), 500);
         }
     }
-    public function delete(Request $request)
+    public function delete($id)
     {
         
         try {
-            $employee = Employees::where('uuid',$request->input('uuid'))->first();
+            $employee = Employees::Find($id);
 
             if (!$employee) {
                 return $this->notFoundResponse('employee not found.');

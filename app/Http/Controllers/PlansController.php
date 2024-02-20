@@ -22,26 +22,19 @@ class PlansController extends Controller
     public function store(Request $request)
     {
        $validator=Validator::make($request->all(),[
-            'Players_id' => 'required|string|exists:players,id',
-            'matches_id' => 'required|string|exists:matches,id',
+            'Players_id' => 'required|string|exists:Players,id',
+            'Matches_id' => 'required|string|exists:Matches,id',
             'status'=> 'required|in:main,beanch',
             
            
         ]);
-
-        if ($validator->fails()) {
-            return $this->requiredField($validator->errors()->first());
-        }
-
-       
-      
 
 
 
             Plans::create([
             'uuid'=>Str::uuid(),
             'Players_id' =>$request->Players_id,
-            'matches_id' =>$request->matches_id,
+            'Matches_id' =>$request->Matches_id,
             'status'=>$request->status,
             
                 ]);
@@ -51,22 +44,33 @@ class PlansController extends Controller
             return $this->apiResponse($data, true, null, 200);
             
         
-            //return $this->apiResponse(null, false, $ex->getMessage(), 500);
+            return $this->apiResponse(null, false, $ex->getMessage(), 500);
         
+    }
+    public function show(Request $request) 
+    {
+        $plan = Plans::where('uuid', $request->uuid)->with('Players','Matches')->get();
+        if($plan)
+        {
+         return $this->apiResponse($plan, true, null, 200);
+        }
+        else{
+         return $this->notFoundResponse('plans not found');
+        }
     }
 
   
-    public function delete(Request $request)
+    public function delete($uuid)
     {
         try {
-            $plan =Plans::where('uuid', $request->input('uuid'))->first();
+            $plan =Plans::Find($id);
 
             if (!$plan) {
                 return $this->notFoundResponse('employee not found.');
             }
 
-            $id= $plan->Player_id;
-            $id2=$plan->match_id;
+            $id= $plan->Players_id;
+            $id2=$plan->Matches_id;
 
             $match= Matches::where('id',$id)->delete();
             $player = Players::where('id',$id)->delete() ;

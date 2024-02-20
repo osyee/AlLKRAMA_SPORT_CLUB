@@ -15,7 +15,7 @@ class Plans extends Model
 protected $fillable = [
     'uuid',
     'Players_id',
-    'matches_id',
+    'Matches_id',
     'status',
     
 ] ;
@@ -24,7 +24,7 @@ protected $fillable = [
 
     public function player()
     {
-        return $this->belongsTo(Players::class) ;
+        return $this->belongsTo(Players::class,'Players_id') ;
     }
 
     public function match()
