@@ -14,6 +14,10 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\PlayersController;
 use App\Http\Controllers\SportsController;
 use App\Http\Controllers\MatchesController;
+use App\Http\Controllers\StandingsController;
+use App\Http\Controllers\PossesController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -110,12 +114,22 @@ Route::get('club-index',[App\Http\Controllers\ClubsController::class,'index']) ;
 
 Route::get('association-index',[App\Http\Controllers\AssociationsController::class,'index']) ;
 
+
+/**========================Wears-Api======================== */
+Route::get('update/wear/{id}',[WearsController::class,'update'])->name('update-wear');
+Route::post('store/wear',[WearsController::class,'store'])->name('store-wear');
+
 Route::get('index/wear',[WearsController::class,'index'])->name('index-wear');
 
 
 /**========================Primes-Api======================== */
 Route::get('Primes-index',[PrimesController::class,'index']) ;
 Route::get('Primes-show',[PrimesController::class,'show']) ;
+
+Route::post('Primes-store',[PrimesController::class,'store']) ;
+Route::get('Primes-update/{id}/edit',[PrimesController::class,'edit']) ;
+Route::put('Primes-update/{id}/edit',[PrimesController::class,'update']) ;
+Route::delete('Primes-delete/{id}/Destroy',[PrimesController::class,'destroy']) ;
 
 /**========================End Primes-Api======================== */
 
@@ -128,7 +142,14 @@ Route::get('Replacments-show/{id}',[ReplacmentsController::class,'show']) ;
 
 ////////////Information
 
+
 Route::get('index/Information',[InformationController::class,'index'])->name('index-Information');
+
+
+Route::post('store/Information',[InformationController::class,'store'])->name('store-Information');
+Route::get('index/Information/{type}',[InformationController::class,'index'])->name('index-Information');
+Route::get('destore/Information/{id}',[InformationController::class,'destore'])->name('destore-Information');
+Route::post('update/Information/{id}',[InformationController::class,'update'])->name('update-Information');
 
 
 ////////////Statistics
@@ -139,6 +160,18 @@ Route::get('index/Statistics',[StatisticsController::class,'index'])->name('inde
 ///////////vidio
 
 Route::get('index/vidio',[VideosController::class,'index'])->name('index-vidio');
+
+////////////standing
+Route::get('store/standing',[StandingsController::class,'store'])->name('store-standing');
+Route::get('update/standing/{id}',[StandingsController::class,'update'])->name('update-standing');
+Route::get('destore/standing/{id}',[StandingsController::class,'destore'])->name('destore-standing');
+Route::get('index/standing/{session_id}',[StandingsController::class,'index'])->name('index-standing');
+
+////////////poss
+Route::post('store/posses',[PossesController::class,'store'])->name('store-posses');
+Route::post('update/posses/{id}',[PossesController::class,'update'])->name('update-posses');
+Route::get('destore/posses/{id}',[PossesController::class,'destore'])->name('destore-posses');
+Route::get('index/posses',[PossesController::class,'index'])->name('index-posses');
 
 
 
@@ -164,5 +197,18 @@ Route::get('player-index/{id}',[PlayersController::class,'index']) ;
 
 Route::get('sport-index/{id}',[SportsController::class,'index']) ;
 Route::get('sport-show',[SportsController::class,'show']) ; 
+
+
+Route::post('sport-store',[SportsController::class,'store']) ;
+Route::post('sport-update/{id}',[SportsController::class,'update']) ;
+
+// ...................matches api
+Route::get('match-show',[MatchesController::class,'show']) ; 
+Route::get('match-delete/{id}',[MatchesController::class,'destroy']) ;
+Route::get('match-index/{id}',[MatchesController::class,'index']) ;
+
+Route::post('match-store',[MatchesController::class,'store']) ; 
+Route::post('match-update/{id}',[MatchesController::class,'update']) ; 
+
 
 

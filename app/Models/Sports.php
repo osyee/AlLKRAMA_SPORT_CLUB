@@ -56,6 +56,10 @@ protected $casts = [
   {
     return $this->hasMany(Wears::class) ;
   } 
+    public function information()
+  {
+    return $this->morphMany(Information::class,'information_able');
+  }
 
   
 

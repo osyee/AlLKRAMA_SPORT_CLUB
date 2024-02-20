@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Carbon\Carbon;
 
-class resourcesinfo extends JsonResource
+class resourcestanding extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,15 +15,18 @@ class resourcesinfo extends JsonResource
     public function toArray($request)
     {
         return[
-            'title'=>$this->title,
-            'content'=>$this->content,
-            'image'=>$this->image,
-            'reads'=>$this->reads,
-            'type'=>$this->type,
-            'created_at'=>Carbon::parse($this->created_at)->diffForHumans(),
-            
-           
-            
+            'win'=>$this->win,
+            'lose'=>$this->lose,
+            'draw'=>$this->draw,
+            '+/-'=>$this->{'+/-'},
+            'point'=>$this->point,
+            'play'=>$this->play,
+            'Clubs_id '=>$this->club->name,
+            'sessions_id '=>$this->session->name,
+
+
+
+
 
         ];
     }

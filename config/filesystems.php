@@ -56,6 +56,30 @@ return [
             'throw' => false,
         ],
 
+        'information' => [
+            'driver' => 'local',
+            'root' => base_path('public/images/information'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            
+        ],
+
+        'wears' => [
+            'driver' => 'local',
+            'root' => base_path('public/images/wears'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            
+        ],
+
+        'posses' => [
+            'driver' => 'local',
+            'root' => base_path('public/images/posses'),
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+            
+        ],
+
     ],
 
     /*

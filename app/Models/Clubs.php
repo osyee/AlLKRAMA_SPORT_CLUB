@@ -20,12 +20,14 @@ class Clubs extends Model
       'address',
       'Sports_id'
     ] ;
+
 protected $casts = [
       'uuid'=>'string',
       'name'=>'string',
       'logo'=>'string',
       'address'=>'string',
 ] ;
+
 
     public function sport()
     {
@@ -41,6 +43,16 @@ protected $casts = [
   {
     return $this->hasMany(Matches::class) ;
   }
+
+  public function information()
+  {
+    return $this->morphMany(Information::class,'information_able');
+  }
+  public function vidio()
+  {
+    return $this->morphMany(Videos::class,'video_able');
+  }
+ 
 
 
 }

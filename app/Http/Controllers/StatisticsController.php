@@ -14,12 +14,19 @@ class StatisticsController extends Controller
     use GeneralTrait;
     public function store(Request $request)
     {
+             
+      $meesage=[
+        'matches_id'=>'This match is not available because there are no statistics for it',
+
+
+        
+        ];
         $validator=Validator::make($request->all(),[
             'name'=>'required|string|unique:statistics,matches_id',
             'vaalue'=>'required',
             'matches_id'=>'required|string|exists:matches,id|unique:statistics,matches_id',
 
-        ]);
+        ],$meesage);
         if($validator->fails())
         {
         $validator->errors();
@@ -41,6 +48,8 @@ class StatisticsController extends Controller
         
        
        $meesage=[
+        'matches_id'=>'This match is not available because there are no statistics for it',
+
 
         
         ];
@@ -59,7 +68,7 @@ class StatisticsController extends Controller
          $stat->uuid=Uuid::uuid4();
          $stat->name=$request->name;
          $stat->vaalue=$request->vaalue;
-          $stat->matches_id=$request->matches_id;
+         $stat->matches_id=$request->matches_id;
          $input=$request->all();
          $stat->update($input);
         return response()->json(['message'=>'successfull']);
