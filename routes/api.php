@@ -67,10 +67,9 @@ Route::get('destore/wear/{id}',[WearsController::class,'destore'])->name('destor
 Route::get('Primes-index',[PrimesController::class,'index']) ;
 Route::get('Primes-show',[PrimesController::class,'show']) ;
 Route::post('Primes-store',[PrimesController::class,'store']) ;
-Route::get('Primes-update',[PrimesController::class,'update']) ;
-
-Route::post('Primes-fileuploader',[PrimesController::class,'fileuploader']) ;
-Route::get('Primes-delete',[PrimesController::class,'delete']) ;
+Route::get('Primes-update/{id}/edit',[PrimesController::class,'edit']) ;
+Route::put('Primes-update/{id}/edit',[PrimesController::class,'update']) ;
+Route::delete('Primes-delete/{id}/Destroy',[PrimesController::class,'destroy']) ;
 /**========================End Primes-Api======================== */
 
 /**========================Replacments-Api======================== */
@@ -148,3 +147,13 @@ Route::get('sport-delete/{id}',[SportsController::class,'destroy']) ;
 
 Route::post('sport-store',[SportsController::class,'store']) ;
 Route::post('sport-update/{id}',[SportsController::class,'update']) ;
+
+// ...................matches api
+Route::get('match-show',[MatchesController::class,'show']) ; 
+Route::get('match-delete/{id}',[MatchesController::class,'destroy']) ;
+Route::get('match-index/{id}',[MatchesController::class,'index']) ;
+
+Route::post('match-store',[MatchesController::class,'store']) ; 
+Route::post('match-update/{id}',[MatchesController::class,'update']) ; 
+
+

@@ -5,17 +5,43 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
  use App\Models\Plans ;
- use App\Models\Replacments;
+ use App\Models\Replacements;
  use App\Models\Clubs;
  use App\Models\Sessions;
  use App\Models\Statistics ;
- use App\Models\Videos;
- 
 
 class Matches extends Model
 {
     use HasFactory;
     
+    protected $fillable = [
+      'uuid',
+      'name' , 
+      'when' , 
+      'status' , 
+      'plan' , 
+      'channel' , 
+      'round' , 
+      'play_ground' , 
+      'sessions_id' , 
+      'club1_id' , 
+      'club2_id' , 
+     
+];
+protected $casts = [
+  'uuid'=>'string',
+  'name'=>'string' , 
+  'when'=>'date' , 
+  'status'=>'string' ,
+  'plan'=>'string', 
+  'channel'=>'string', 
+  'round'=>'int' , 
+  'play_ground'=>'string' , 
+  'sessions_id'=>'integer', 
+  'club1_id'=>'integer' , 
+  'club2_id'=>'integer' , 
+];
+
 
   public function plan()
   {
@@ -24,7 +50,7 @@ class Matches extends Model
 
   public function replacment()
   {
-    return $this->hasMany(Replacments::class) ;
+    return $this->hasMany(Replacements::class) ;
   } 
 
   public function session()
@@ -46,6 +72,7 @@ class Matches extends Model
   {
     return $this->hasMany(Statistics::class) ;
   } 
+
   public function information()
   {
     return $this->morphMany(Information::class,'information_able');
