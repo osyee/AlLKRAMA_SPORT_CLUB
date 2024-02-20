@@ -19,28 +19,26 @@ class WearsController extends Controller
     
     public function store(Request $request)
     {
-        
-        $fileextension=$request->image->getclientoriginalExtension();
-        $filename=time().'.'.$fileextension;
-        $path='images/wears';
-        $request->image->move($path,$filename);
-        
+      $fileextension=$request->image->getclientoriginalExtension();
+      $filename=time().'.'.$fileextension;
+      $path='images/wears';
+      $request->image->move($path,$filename);
 
-
-
-
-
+      $message=[
+        'sessions_id'=>'This seasons dress has been tested',
+        'Sports_id'=>'This teams uniform has been tested'
+      ];
         $validato=Validator::make($request->all(),[
             'sessions_id'=>'required|exists:sessions,id|unique:wears,sessions_id',
-            'image'=>'required',
+            'image'=>'required|file|mimes:jpg,png,jpeg,jfif',
             'Sports_id'=>'required|exists:Sports,id|unique:wears,Sports_id',
 
-         ]);
+         ],$message);
          if($validato->fails())
          {
-         $validato->errors();
-         return $this->apiResponse($validato,false);
+          return $this->requiredField($validato->errors());
          }
+
         $wear=new Wears();
         $wear->uuid=Uuid::uuid4();
         $wear->image=$filename;
@@ -54,7 +52,7 @@ class WearsController extends Controller
     public function index()
     {
 
-        $sta=Wears::with('session','sport')->get();
+        $sta=Wears::with('session','sport')->latest()->get();
         $data=resourcewears::collection(Wears::all());
          return $this->apiResponse($data);
         
@@ -62,21 +60,30 @@ class WearsController extends Controller
 
     public function update(REQUEST $request,$id)
     {
+      $fileextension=$request->image->getclientoriginalExtension();
+      $filename=time().'.'.$fileextension;
+      $path='images/wears';
+      $request->image->move($path,$filename);
+
+      $message=[
+        'sessions_id'=>'This seasons dress has been tested',
+        'Sports_id'=>'This teams uniform has been tested'
+      ];
         $validato=Validator::make($request->all(),[
             'sessions_id'=>'required|string|exists:sessions,id|unique:wears,sessions_id',
-            'image'=>'required',
+            'image'=>'required|file|mimes:jpg,png,jpeg,jfif',
             'Sports_id'=>'required|string|exists:Sports,id|unique:wears,Sports_id',
 
-         ]);
+         ],$message);
          if($validato->fails())
          {
-         $validato->errors();
-         return $this->apiResponse($validato,false);
+          return $this->requiredField($validato->errors());
          }
-      //  $uplodeimage=$request->image;
+
+      
         $wear=Wears::find($id);
         $wear->uuid=Uuid::uuid4();
-        $wear->image=$request->image;
+        $wear->image=$filename;
         $wear->sessions_id=$request->sessions_id;
         $wear->Sports_id=$request->Sports_id;
         $input=$request->all();

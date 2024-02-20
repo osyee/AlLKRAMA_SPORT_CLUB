@@ -6,6 +6,7 @@ use App\Models\Clubs;
 use App\Models\Matches;
 use App\Models\Sessions;
 use App\Models\Information;
+use App\Models\Statistics;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -23,51 +24,50 @@ class InformationController extends Controller
   
     public function store(Request $request)
     { 
-        
+      $fileextension=$request->image->getclientoriginalExtension();
+      $filename=time().'.'.$fileextension;
+      $path='images/information';
+      $request->image->move($path,$filename);
       
-        $spor=Sports::find(3);
-        $club=Clubs::find(1);
+       // $spor=Sports::find(2);
+       // $club=Clubs::find(1);
        /* $session=Sessions::find();
         $match=Matches::find();*/
-        
+        $stat=Statistics::find(1);
        
-       $meesage=[
-            'title'=>'Please enter the news title',
-            'content' =>'Please enter the news',
-            'type'=>'Not recognized',
-
-        ];
+ 
          $validato=Validator::make($request->all(),[
             'title'=>'required|string|max:255',
-            'image'=>'required|file|mimes:jpg,png,jpeg,gif',
+            'image'=>'required|file|mimes:jpg,png,jpeg,jfif',
             'content'=>'required|string',
             'reads'=>'required',
             'type'=>'required|in:stategy,news,regular,slider',
-         ],$meesage);
-        if($validato->fails())
+         ]);
+         if($validato->fails())
          {
-         $validato->errors();
-         return $this->apiResponse($validato,false);
+          return $this->requiredField($validato->errors());
          }
-        $uplodeimage=$this->uploadImage2($request,'Information','image');
+
+   
+        
         $info=new Information();
         $info->uuid=Uuid::uuid4();
         $info->title=$request->title;
-        $info->image=$uplodeimage;
+        $info->image=$filename;
         $info->content=$request->content;
         $info->reads=$request->reads;
         $info->type=$request->type;
-        $info->information_able()->associate($spor);
+        $info->information_able()->associate($stat);
         $info->save();
         return response()->json(['message'=>'successfull']);
     }
 
 
-    public function index()
+    public function index($type)
     {
-     $news=Information::with('information_able')->where('type','news')->get();
-     $data=resourcesinfo::collection(Information::all());
-     return $this->apiResponse($data);
+     $news=Information::with('information_able')->where('type',$type)->get();
+    // $data=resourcesinfo::collection($news);
+     return $this->apiResponse($news);
     }
 
  
@@ -92,38 +92,39 @@ class InformationController extends Controller
 
     public function update(REQUEST $request,$id)
     {
-        $spor=Sports::find(5);
+      $fileextension=$request->image->getclientoriginalExtension();
+      $filename=time().'.'.$fileextension;
+      $path='images/information';
+      $request->image->move($path,$filename);
+       // $spor=Sports::find(1);
+       $stat=Statistics::find(1);
        
-       $meesage=[
-        'title'=>'Please enter the news title',
-        'content' =>'Please enter the news',
-        'type'=>'Not recognized',
-        ];
+ 
          $validato=Validator::make($request->all(),[
             'title'=>'required|string|max:255',
-            'image'=>'required',
+            'image'=>'required|file|mimes:jpg,png,jpeg,jfif',
             'content'=>'required|string',
             'reads'=>'required',
             'type'=>'required|in:stategy,news,regular,slider',
-         ],$meesage);
+         ]);
          if($validato->fails())
          {
-         $validato->errors();
-         return $this->apiResponse($validato);
+          return $this->requiredField($validato->errors());
          }
 
-       $uplodeimage=$request->image;
+
+       
         $info=Information::find($id);
         $info->uuid=Uuid::uuid4();
         $info->title=$request->title;
-        $info->image=$uplodeimage;
+        $info->image=$filename;
         $info->content=$request->content;
         $info->reads=$request->reads;
-        $info->information_able()->associate($spor);
+        $info->information_able()->associate($stat);
         $info->type='news';
         
         $info->save();
-        return response()->json(['message'=>'Success']);
+        return response()->json(['message'=>'successfull']);
 
     }
   

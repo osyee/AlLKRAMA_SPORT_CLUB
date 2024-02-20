@@ -11,6 +11,14 @@ use App\Models\Topfans ;
 class Associations extends Model
 {
     use HasFactory;
+    protected $fillable = [
+      'uuid',
+      'boss',
+      'image',
+      'description',
+      'country',
+      'Sports_id'
+    ] ;
 
     public function sport()
     {

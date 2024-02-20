@@ -46,6 +46,10 @@ protected $fillable = [
   {
     return $this->hasMany(Standings::class) ;
   }
+    public function information()
+  {
+    return $this->morphMany(Information::class,'information_able');
+  }
 
 
 }

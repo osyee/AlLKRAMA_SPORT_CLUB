@@ -14,6 +14,10 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\PlayersController;
 use App\Http\Controllers\SportsController;
 use App\Http\Controllers\MatchesController;
+use App\Http\Controllers\StandingsController;
+use App\Http\Controllers\PossesController;
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -54,7 +58,7 @@ Route::post('association-delete',[App\Http\Controllers\AssociationsController::c
 
 /**========================Wears-Api======================== */
 Route::get('update/wear/{id}',[WearsController::class,'update'])->name('update-wear');
-Route::get('store/wear',[WearsController::class,'store'])->name('store-wear');
+Route::post('store/wear',[WearsController::class,'store'])->name('store-wear');
 Route::get('index/wear',[WearsController::class,'index'])->name('index-wear');
 Route::get('destore/wear/{id}',[WearsController::class,'destore'])->name('destore-wear');
 /**========================End Wears-Api======================== */
@@ -81,9 +85,9 @@ Route::delete('Replacments-Destroy/{id}/Destroy',[ReplacmentsController::class,'
 
 ////////////Information
 Route::post('store/Information',[InformationController::class,'store'])->name('store-Information');
-Route::get('index/Information',[InformationController::class,'index'])->name('index-Information');
+Route::get('index/Information/{type}',[InformationController::class,'index'])->name('index-Information');
 Route::get('destore/Information/{id}',[InformationController::class,'destore'])->name('destore-Information');
-Route::get('update/Information/{id}',[InformationController::class,'update'])->name('update-Information');
+Route::post('update/Information/{id}',[InformationController::class,'update'])->name('update-Information');
 
 ////////////Statistics
 Route::get('update/Statistics/{id}',[StatisticsController::class,'update'])->name('update-Statistics');
@@ -96,6 +100,18 @@ Route::get('update/vidio/{id}',[VideosController::class,'update'])->name('update
 Route::get('store/vidio',[VideosController::class,'store'])->name('store-vidio');
 Route::get('destore/vidio/{id}',[VideosController::class,'destore'])->name('destore-vidio');
 Route::get('index/vidio',[VideosController::class,'index'])->name('index-vidio');
+
+////////////standing
+Route::get('store/standing',[StandingsController::class,'store'])->name('store-standing');
+Route::get('update/standing/{id}',[StandingsController::class,'update'])->name('update-standing');
+Route::get('destore/standing/{id}',[StandingsController::class,'destore'])->name('destore-standing');
+Route::get('index/standing/{session_id}',[StandingsController::class,'index'])->name('index-standing');
+
+////////////poss
+Route::post('store/posses',[PossesController::class,'store'])->name('store-posses');
+Route::post('update/posses/{id}',[PossesController::class,'update'])->name('update-posses');
+Route::get('destore/posses/{id}',[PossesController::class,'destore'])->name('destore-posses');
+Route::get('index/posses',[PossesController::class,'index'])->name('index-posses');
 
 
 

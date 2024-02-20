@@ -14,6 +14,13 @@ class Clubs extends Model
 {
     
     use HasFactory;
+    protected $fillable = [
+      'uuid',
+      'name',
+      'logo',
+      'address',
+      'Sports_id'
+    ] ;
     
     public function sport()
     {
@@ -29,10 +36,10 @@ class Clubs extends Model
   {
     return $this->hasMany(Matches::class) ;
   }
-  /*public function information()
+  public function information()
   {
     return $this->morphMany(Information::class,'information_able');
-  }*/
+  }
   public function vidio()
   {
     return $this->morphMany(Videos::class,'video_able');

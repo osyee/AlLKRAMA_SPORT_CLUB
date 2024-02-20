@@ -46,12 +46,13 @@ class Matches extends Model
   {
     return $this->hasMany(Statistics::class) ;
   } 
- /* public function information()
+  public function information()
   {
     return $this->morphMany(Information::class,'information_able');
-  }*/
+  }
   public function vidio()
   {
     return $this->morphMany(Videos::class,'vidioable');
   }
+
 }
